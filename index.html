@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./script.js"></script>
+  </head>
+  <style>
+    body {
+      background-color: rgb(24, 30, 43);
+    }
+    .flex-parent {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* height: 500px; */
+    }
+    .container {
+      background-color: rgb(183, 189, 194);
+    }
+  </style>
+  <body>
+    <div style="display: flex; gap: 1rem">
+      <p>col</p>
+      <input type="text" name="col" id="col" placeholder="col" />
+      <p>row</p>
+      <input type="text" name="row" id="row" placeholder="row" />
+      <button id="but">click</button>
+      <p>colors</p>
+      <input type="color" name="color" id="color" />
+      <button id="drawing">drawing</button>
+      <button id="download-btn">Download as PNG</button>
+      <button id="toggle-lines">toggle-lines</button>
+    </div>
+    <div class="flex-parent"><div class="container" id="container"></div></div>
+
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+  </body>
+  <script></script>
+</html>
