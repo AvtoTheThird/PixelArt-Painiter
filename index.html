@@ -11,6 +11,7 @@
       background-color: rgb(24, 30, 43);
     }
     .flex-parent {
+      padding-top: 40px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -32,6 +33,13 @@
       <button id="drawing">drawing</button>
       <button id="download-btn">Download as PNG</button>
       <button id="toggle-lines">toggle-lines</button>
+      <div>
+        color history:
+        <div
+          style="display: flex; color: aliceblue; gap: 5px"
+          id="history"
+        ></div>
+      </div>
     </div>
     <div class="flex-parent"><div class="container" id="container"></div></div>
 

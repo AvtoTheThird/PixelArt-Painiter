@@ -78,11 +78,36 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   // choosing colors
   let colorWheel = document.getElementById("color");
-  let curentColor = "black";
-
+  let curentColor = "rgb(0,0,0)";
   colorWheel.addEventListener("change", () => {
     curentColor = colorWheel.value;
-    console.log(curentColor);
+    let historyDiv = document.getElementById("history");
+    if (historyDiv.childNodes.length < 10) {
+      let historyCube = document.createElement("div");
+      historyCube.style.width = "40px";
+      historyCube.style.height = "40px";
+      historyCube.style.cursor = "pointer";
+
+      historyCube.style.backgroundColor = curentColor;
+      historyCube.addEventListener("click", (event) => {
+        curentColor = event.target.style.backgroundColor;
+        colorWheel.value = rgbToHex(curentColor);
+      });
+      historyDiv.appendChild(historyCube);
+    } else {
+      historyDiv.removeChild(historyDiv.lastChild);
+      let historyCube = document.createElement("div");
+      historyCube.style.width = "40px";
+      historyCube.style.height = "40px";
+      historyCube.style.cursor = "pointer";
+
+      historyCube.style.backgroundColor = curentColor;
+      historyCube.addEventListener("click", (event) => {
+        curentColor = event.target.style.backgroundColor;
+        colorWheel.value = rgbToHex(curentColor);
+      });
+      historyDiv.insertBefore(historyCube, historyDiv.firstChild);
+    }
   });
   function rgbToHex(rgb) {
     // Extract the numbers from the rgb string
