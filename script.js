@@ -7,12 +7,28 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let drawingButton = document.getElementById("drawing");
   let isMouseDown = false;
   let toggle = document.getElementById("toggle-lines");
+  let displayedPixeSize = document.getElementById("displayedPixeSize");
+  let finalePixelSize = document.getElementById("finalePixelSize");
+  let drawing = true;
 
   document.addEventListener("mousedown", () => {
     isMouseDown = true;
   });
   document.addEventListener("mouseup", () => {
     isMouseDown = false;
+  });
+  document.addEventListener("keypress", (event) => {
+    // console.log(event.key);
+    // console.log("aa");
+
+    if (event.key === "d") {
+      drawing = true;
+      drawingButton.innerText = "Drawing";
+    } else if (event.key === "e") {
+      drawingButton.innerText = "Eracing";
+
+      drawing = false;
+    }
   });
 
   drawingButton.addEventListener("click", () => {
@@ -23,7 +39,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
       drawingButton.innerText = "Eracing";
     }
   });
-  let drawing = true;
   but.addEventListener("click", () => {
     container.innerHTML = "";
     // console.log(col.value, row.value);
@@ -31,13 +46,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let rowDivChild = document.createElement("div");
     rowDiv.style.display = "flex";
     rowDiv.draggable = false;
-    rowDivChild.style.height = "40px";
+    rowDivChild.style.height = `${displayedPixeSize.value}px`;
     rowDivChild.draggable = false;
     rowDivChild.id = "pixel";
-    rowDivChild.style.width = "40px";
+    rowDivChild.style.width = `${displayedPixeSize.value}px`;
     rowDivChild.style.border = "1px solid black";
-    // console.log(row.value * 40);
-    container.style.width = `${row.value * 40}px`;
+    container.style.width = `${row.value * displayedPixeSize.value}px`;
 
     // rowDivChild.style.backgroundColor = "red";
     for (let i = 0; i < Number(row.value); i++) {
@@ -47,6 +61,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     for (let i = 0; i < Number(col.value); i++) {
       let clonedRowDiv = container.appendChild(rowDiv.cloneNode(true));
       clonedRowDiv.addEventListener("mouseover", (event) => {
+        // drawing
+        //   ? (document.body.style.cursor = 'url("./icons/pencill.png"), auto')
+        //   : (document.body.style.cursor = 'url("./icons/eracer.png"), auto');
+
         event.preventDefault();
         if (drawing && isMouseDown) {
           event.target.style.backgroundColor = curentColor;
@@ -63,20 +81,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
       });
     }
-    // container.appendChild(rowDiv);
+    displayedPixeSize.addEventListener("change", () => {
+      let children = document.querySelectorAll("#pixel");
+      container.style.width = `${row.value * displayedPixeSize.value}px`;
+
+      children.forEach((element) => {
+        element.style.height = `${displayedPixeSize.value}px`;
+        element.style.width = `${displayedPixeSize.value}px`;
+      });
+    });
     toggle.addEventListener("click", () => {
       let children = document.querySelectorAll("#pixel");
-      // console.log(children);
       children.forEach((element) => {
         element.style.border = element.style.border ? "" : "1px solid black";
       });
       container.style.border = container.style.border ? "" : "1px solid black";
-
-      // children.style.border = "";
     });
   });
 
-  // choosing colors
   let colorWheel = document.getElementById("color");
   let curentColor = "rgb(0,0,0)";
   colorWheel.addEventListener("change", () => {
@@ -97,8 +119,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     } else {
       historyDiv.removeChild(historyDiv.lastChild);
       let historyCube = document.createElement("div");
-      historyCube.style.width = "40px";
-      historyCube.style.height = "40px";
+      historyCube.style.width = "25px";
+      historyCube.style.height = "25px";
       historyCube.style.cursor = "pointer";
 
       historyCube.style.backgroundColor = curentColor;
@@ -127,7 +149,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // getting the colors
     let colorArray = [];
     let tempArray = [];
-    const cellSize = 50;
+    const cellSize = finalePixelSize.value ? 10 : finalePixelSize.value;
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     canvas.width = row.value * cellSize;

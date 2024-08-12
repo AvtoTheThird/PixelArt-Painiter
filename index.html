@@ -9,6 +9,7 @@
   <style>
     body {
       background-color: rgb(24, 30, 43);
+      color: aliceblue;
     }
     .flex-parent {
       padding-top: 40px;
@@ -20,14 +21,29 @@
     .container {
       background-color: rgb(183, 189, 194);
     }
+    input[type="text"] {
+      width: 80px;
+      height: 25px;
+    }
+    input[type="number"] {
+      width: 80px;
+      height: 25px;
+    }
+    * {
+      box-sizing: border-box;
+    }
   </style>
   <body>
-    <div style="display: flex; gap: 1rem">
+    <div style="display: flex; gap: 1rem; align-items: center">
       <p>col</p>
       <input type="text" name="col" id="col" placeholder="col" />
       <p>row</p>
       <input type="text" name="row" id="row" placeholder="row" />
-      <button id="but">click</button>
+      <p>displayed pixel size</p>
+      <input type="number" name="displayedPixeSize" id="displayedPixeSize" />
+      <p>final image pixel size</p>
+      <input type="text" name="finalePixelSize" id="finalePixelSize" />
+      <button id="but">generate canvas</button>
       <p>colors</p>
       <input type="color" name="color" id="color" />
       <button id="drawing">drawing</button>
@@ -35,10 +51,7 @@
       <button id="toggle-lines">toggle-lines</button>
       <div>
         color history:
-        <div
-          style="display: flex; color: aliceblue; gap: 5px"
-          id="history"
-        ></div>
+        <div style="display: flex; gap: 5px" id="history"></div>
       </div>
     </div>
     <div class="flex-parent"><div class="container" id="container"></div></div>
